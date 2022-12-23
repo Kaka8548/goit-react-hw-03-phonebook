@@ -10,6 +10,32 @@ export class App extends Component {
     filter: '',
   };
 
+  componentDidMount = async () => {
+    const listLength = await JSON.parse(
+      localStorage.getItem('contact-list').length
+    );
+    if (listLength > 0) {
+      try {
+        this.setState({
+          contacts: JSON.parse(localStorage.getItem('contact-list')),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  componentDidUpdate = (_, prevState) => {
+    const { contacts } = this.state;
+
+    if (prevState.contacts.length !== contacts.length) {
+      try {
+        localStorage.setItem('contact-list', JSON.stringify(contacts));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   addContact = (name, number) => {
     const isInContact = this.state.contacts.find(
