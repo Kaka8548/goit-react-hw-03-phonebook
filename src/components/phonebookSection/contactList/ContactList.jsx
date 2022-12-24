@@ -1,16 +1,11 @@
 import { ItemBtn, List, ListItem } from './ContactList.styled';
 import PropTypes from 'prop-types';
 
-export default function ContactList({
-  contacts,
-  filteredContacts,
-  onDeleteBtnClick,
-}) {
-  const listArray = filteredContacts ? filteredContacts : contacts;
+export default function ContactList({ contacts, onDeleteBtnClick }) {
   return (
     <>
       <List>
-        {listArray.map(el => (
+        {contacts.map(el => (
           <ListItem key={el.id}>
             <p>
               {el.name}: {el.number}
@@ -27,6 +22,5 @@ export default function ContactList({
 
 ContactList.propTypes = {
   contacts: PropTypes.array.isRequired,
-  filteredContacts: PropTypes.array.isRequired,
   onDeleteBtnClick: PropTypes.func.isRequired,
 };

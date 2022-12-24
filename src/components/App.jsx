@@ -87,8 +87,7 @@ export class App extends Component {
           <>
             <Filter handleChange={this.getFilterQuery} />
             <ContactList
-              contacts={contacts}
-              filteredContacts={this.getFilteredList()}
+              contacts={this.getFilteredList()}
               onDeleteBtnClick={this.deleteItem}
             />
           </>
