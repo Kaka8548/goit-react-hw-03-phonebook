@@ -10,18 +10,17 @@ export class App extends Component {
     filter: '',
   };
 
-  componentDidMount = async () => {
-    const listLength = await JSON.parse(
-      localStorage.getItem('contact-list').length
-    );
-    if (listLength > 0) {
-      try {
+  componentDidMount = () => {
+    try {
+      const parsedContacts = JSON.parse(localStorage.getItem('contact-list'));
+
+      if (parsedContacts) {
         this.setState({
-          contacts: JSON.parse(localStorage.getItem('contact-list')),
+          contacts: parsedContacts,
         });
-      } catch (error) {
-        console.log(error);
       }
+    } catch (error) {
+      return;
     }
   };
 
@@ -29,11 +28,7 @@ export class App extends Component {
     const { contacts } = this.state;
 
     if (prevState.contacts.length !== contacts.length) {
-      try {
-        localStorage.setItem('contact-list', JSON.stringify(contacts));
-      } catch (error) {
-        console.log(error);
-      }
+      localStorage.setItem('contact-list', JSON.stringify(contacts));
     }
   };
 
